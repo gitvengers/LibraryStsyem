@@ -30,7 +30,21 @@ public class LibrarySystemTest {
     }
 
     @Test
-    public void rentBookTest(){
+    public void SearchBookTest(){
+        Book lol = new Book("lol","me","riot",1);
+        Book lol2 = new Book("lol2","me","riot",2 );
+
+        LibraryService service = mock(LibraryService.class);
+
+        service.addBookToList(lol);
+        service.addBookToList(lol2);
+
+        when(service.serchInCurrentList("lol")).thenReturn(lol);
+        assertThat(service.serchInCurrentList("lol"),is(lol));
+    }
+
+    @Test
+    public void RentBookTest(){
         Book lol = new Book("lol","me","riot",1);
         Book lol2 = new Book("lol2","me","riot",2 );
 
@@ -41,7 +55,8 @@ public class LibrarySystemTest {
 
         service.rentBookToUser("lol");
 
-        assertThat(service.serchInCurrentList("lol2"),is(lol2));
+        when(service.serchInCurrentList("lol")).thenReturn(null);
+        assertThat(service.serchInCurrentList("lol"),is(isNull()));
     }
 
     @Test//(expected = IllegalArgumentException.class)

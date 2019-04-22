@@ -7,13 +7,18 @@ import java.util.List;
 
 public class LibraryService {
 
-    private List<Book> currentBookList = new ArrayList<Book>();
-    private List<Book> rentalBookList = new ArrayList<Book>();
+    private List<Book> currentBookList;
+    private List<Book> rentalBookList;
+
+    public LibraryService(){
+        this.currentBookList = new ArrayList<Book>();
+        this.rentalBookList = new ArrayList<Book>();
+    }
 
     // Book Searching method, Service methods call this method
     private int getIndexOfBook(List<Book> bookList, String name){
         for(int idx =0; idx<bookList.size();idx++){
-            if(bookList.get(idx).getTitle() == name){
+            if(bookList.get(idx).getTitle().equals(name)){
                 return idx;
             }
         }
@@ -44,14 +49,18 @@ public class LibraryService {
     }
 
     public Book serchInCurrentList(String name){
+        int rentBookNumber = getIndexOfBook(currentBookList, name);
+        if (rentBookNumber == -1){
+            return null;
+        }
         return currentBookList.get(getIndexOfBook(currentBookList,name));
     }
 
     public void addBookToList(Book book){
-        this.currentBookList.add(book);
+        currentBookList.add(book);
     }
 
     public void removeBookInList(String name){
-        this.currentBookList.remove(getIndexOfBook(currentBookList,name));
+        currentBookList.remove(getIndexOfBook(currentBookList,name));
     }
 }
