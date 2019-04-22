@@ -47,7 +47,7 @@ public class BookRepoTest {
         List<Book> books = bookRepo.findAll();
         bookRepo.addBook(book);
 
-        assertThat(books.size(), is(1));
+        assertThat(books.size(), is(1)); // mock객체라서 add가 안되용. 그래서 books.size()가 0 기대값은 1 test fail();
     }
 
     @Test(expected = MockitoException.class)
