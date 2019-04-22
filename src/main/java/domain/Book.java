@@ -10,4 +10,8 @@ public class Book {
     private String author;
     private String publisher;
     private int count;
+
+    public void changePublisher(String newPublisher){
+        this.publisher = newPublisher;
+    }
 }
