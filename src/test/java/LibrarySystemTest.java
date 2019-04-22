@@ -58,19 +58,20 @@ public class LibrarySystemTest {
         when(service.serchInCurrentList("lol")).thenReturn(null);
         assertThat(service.serchInCurrentList("lol"),is(isNull()));
     }
+    
 
-    @Test//(expected = IllegalArgumentException.class)
-    public void removeBookInListTest(){
+    @Test
+    public void returnToLibraryTest() {
         Book lol = new Book("lol","me","riot",1);
-        Book lol2 = new Book("lol2","me","riot",2 );
 
         LibraryService service = mock(LibraryService.class);
 
         service.addBookToList(lol);
-        service.addBookToList(lol2);
-        service.removeBookInList(lol.getTitle());
+        service.rentBookToUser("lol");
+        service.returnToLibrary("lol");
+        System.out.println(service.serchInCurrentList("lol"));
 
-        doThrow(new IllegalArgumentException()).when(service).serchInCurrentList("lol");
+        verify(service,times(1)).serchInCurrentList("lol");
     }
 
 
