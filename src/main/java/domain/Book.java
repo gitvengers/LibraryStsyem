@@ -11,6 +11,8 @@ public class Book {
     private String publisher;
     private int count;
 
+    public Book(){}
+
     public void changePublisher(String newPublisher){
         this.publisher = newPublisher;
     }
