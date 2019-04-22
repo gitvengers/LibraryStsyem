@@ -58,7 +58,22 @@ public class LibrarySystemTest {
         when(service.serchInCurrentList("lol")).thenReturn(null);
         assertThat(service.serchInCurrentList("lol"),is(isNull()));
     }
-    
+
+    @Test
+    public void removeBookInListTest() {
+        Book lol = new Book("lol","me","riot",1);
+        Book lol2 = new Book("lol2","me","riot",2 );
+
+        LibraryService service = mock(LibraryService.class);
+
+        service.addBookToList(lol);
+        service.addBookToList(lol2);
+        service.removeBookInList("lol");
+        
+        when(service.serchInCurrentList("lol")).thenReturn(lol);
+        assertThat(service.serchInCurrentList("lol"),is(lol));
+
+    }
 
     @Test
     public void returnToLibraryTest() {
