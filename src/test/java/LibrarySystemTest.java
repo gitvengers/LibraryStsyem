@@ -44,4 +44,20 @@ public class LibrarySystemTest {
         assertThat(service.serchInCurrentList("lol2"),is(lol2));
     }
 
+    @Test//(expected = IllegalArgumentException.class)
+    public void removeBookInListTest(){
+        Book lol = new Book("lol","me","riot",1);
+        Book lol2 = new Book("lol2","me","riot",2 );
+
+        LibraryService service = mock(LibraryService.class);
+
+        service.addBookToList(lol);
+        service.addBookToList(lol2);
+        service.removeBookInList(lol.getTitle());
+
+        doThrow(new IllegalArgumentException()).when(service).serchInCurrentList("lol");
+    }
+
+
+
 }
