@@ -16,4 +16,13 @@ public class Book {
     public void changePublisher(String newPublisher){
         this.publisher = newPublisher;
     }
+
+    public boolean is(String title, String author, String publisher){
+        if(this.getTitle().equals(title)){
+            if(this.getAuthor().equals(author)){
+                return this.getPublisher().equals(publisher);
+            }
+        }
+        return false;
+    }
 }

@@ -56,19 +56,24 @@ public class LibraryService {
     }
 
     // 2번째, if문에 조건을 이빠이 걸어주자.
-    public Book searchWithDetailed(String name, String author, String publisher){
+    public Book searchWithDetailed(String title, String author, String publisher){
         for(int i=0;i<this.currentBookList.size();i++){
             Book tmpBook = currentBookList.get(i);
-            if(tmpBook.getTitle().equals(name)){
-                if(tmpBook.getAuthor().equals(author)){
-                    if(tmpBook.getPublisher().equals(publisher)){
-                        return tmpBook;
-                    }
-                }
+//            if(tmpBook.getTitle().equals(title)){
+//                if(tmpBook.getAuthor().equals(author)){
+//                    if(tmpBook.getPublisher().equals(publisher)){
+//                        return tmpBook;
+//                    }
+//                }
+//            }
+            if(tmpBook.is(title, author, publisher)){
+                return tmpBook;
             }
         }
         return null;
     }
+
+
 
 //    public void rentOneBookToUser(String name){
 //
