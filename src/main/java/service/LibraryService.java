@@ -21,9 +21,9 @@ public class LibraryService {
     }
 
     // Book Searching method, Service methods call this method
-    private int getIndexOfBook(List<Book> bookList, String name){
+    private int getIndexOfBook(List<Book> bookList, String title){
         for(int idx =0; idx<bookList.size();idx++){
-            if(bookList.get(idx).getTitle().equals(name)){
+            if(bookList.get(idx).getTitle().equals(title)){
                 return idx;
             }
         }
@@ -31,9 +31,9 @@ public class LibraryService {
     }
 
     // 조건을 이상하게 줄 것. TODO
-    public void rentBookToUser(String name){
+    public void rentBookToUser(String title){
 
-        int rentBookNumber = this.getIndexOfBook(currentBookList, name);
+        int rentBookNumber = this.getIndexOfBook(currentBookList, title);
         if (rentBookNumber == -1){
             System.out.println("That book has benn rented");
         }
@@ -43,17 +43,23 @@ public class LibraryService {
         }
     }
     /* TODO 1. Extract method : 를 만든다고 하면, 내부적으로 반복되는 동작. => library에 적용시키면? 대출인가. 대출 권수를 정하고, 그 만큼 반복하면서 책이 잇는지를 확인해야하므로*/
-    public void rentBooksToUser(String[] names){
-        int rentBookQuantity = names.length;
-        for(int i=0;i<rentBookQuantity;i++){
-            for(int j=0;j<this.currentBookList.size();j++){
-               if(currentBookList.get(j).equals(names[i])){
-                   rentalBookList.add(currentBookList.get(j));
-                   currentBookList.remove(j);
-               }
-            }
+    public void rentBooksToUser(String[] titles){
+        for(String title : titles){
+            rentBookToUser(title);
         }
     }
+
+//    public void rentBooksToUser(String[] names){
+//        int rentBookQuantity = names.length;
+//        for(int i=0;i<rentBookQuantity;i++){
+//            for(int j=0;j<this.currentBookList.size();j++){
+//               if(currentBookList.get(j).getTitle().equals(names[i])){
+//                   rentalBookList.add(currentBookList.get(j));
+//                   currentBookList.remove(j);
+//               }
+//            }
+//        }
+//    }
 
     // 2번째, if문에 조건을 이빠이 걸어주자.
     public Book searchWithDetailed(String title, String author, String publisher){
@@ -88,8 +94,8 @@ public class LibraryService {
 //    }
 
     // TODO : 3번째. Replace Temp Query 였나?
-    public void returnToLibrary(String name){
-        int returnBookNumber = this.getIndexOfBook(rentalBookList, name);
+    public void returnToLibrary(String title){
+        int returnBookNumber = this.getIndexOfBook(rentalBookList, title);
         if (returnBookNumber == -1){
             System.out.println("That book is on Library");
         }
@@ -99,20 +105,20 @@ public class LibraryService {
         }
     }
 
-    public Book serchInCurrentList(String name){ // TODO : Replace Temp with Query
-        int rentBookNumber = getIndexOfBook(currentBookList, name);
+    public Book serchInCurrentList(String title){ // TODO : Replace Temp with Query
+        int rentBookNumber = getIndexOfBook(currentBookList, title);
         if (rentBookNumber == -1){
             return null;
         }
-        return currentBookList.get(getIndexOfBook(currentBookList,name));
+        return currentBookList.get(getIndexOfBook(currentBookList,title));
     }
 
     public void addBookToList(Book book){
         currentBookList.add(book);
     }
 
-    public void removeBookInList(String name){
-        currentBookList.remove(getIndexOfBook(currentBookList,name));
+    public void removeBookInList(String title){
+        currentBookList.remove(getIndexOfBook(currentBookList,title));
     }
 
 }
