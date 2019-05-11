@@ -16,4 +16,8 @@ public class Book {
     public void changePublisher(String newPublisher){
         this.publisher = newPublisher;
     }
+    public boolean isNull(){
+        return false;
+    }
 }
+

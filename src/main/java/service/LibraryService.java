@@ -1,6 +1,7 @@
 package service;
 
 import domain.Book;
+import domain.NullBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,44 +17,44 @@ public class LibraryService {
     }
 
     // Book Searching method, Service methods call this method
-    private int getIndexOfBook(List<Book> bookList, String name){
+    private Book findBook(List<Book> bookList, String name){
         for(int idx =0; idx<bookList.size();idx++){
             if(bookList.get(idx).getTitle().equals(name)){
-                return idx;
+                return bookList.get(idx);
             }
         }
-        return -1;
+        return new NullBook();
     }
 
     public void rentBookToUser(String name){
 
-        int rentBookNumber = this.getIndexOfBook(currentBookList, name);
-        if (rentBookNumber == -1){
+        Book rentBook = this.findBook(currentBookList, name);
+        if (rentBook.isNull()){
             System.out.println("That book has benn rented");
         }
         else{
-            rentalBookList.add(currentBookList.get(rentBookNumber));
-            currentBookList.remove(rentBookNumber);
+            rentalBookList.add(rentBook);
+            currentBookList.remove(rentBook);
         }
     }
 
     public void returnToLibrary(String name){
-        int returnBookNumber = this.getIndexOfBook(rentalBookList, name);
-        if (returnBookNumber == -1){
+        Book returnBook = this.findBook(rentalBookList, name);
+        if (returnBook.isNull()){
             System.out.println("That book is on Library");
         }
         else{
-            currentBookList.add(rentalBookList.get(returnBookNumber));
-            rentalBookList.remove(returnBookNumber);
+            currentBookList.add(returnBook);
+            rentalBookList.remove(returnBook);
         }
     }
 
     public Book serchInCurrentList(String name){
-        int rentBookNumber = getIndexOfBook(currentBookList, name);
-        if (rentBookNumber == -1){
+        Book rentBook = this.findBook(currentBookList, name);
+        if (rentBook.isNull()){
             return null;
         }
-        return currentBookList.get(getIndexOfBook(currentBookList,name));
+        return rentBook;
     }
 
     public void addBookToList(Book book){
@@ -61,6 +62,6 @@ public class LibraryService {
     }
 
     public void removeBookInList(String name){
-        currentBookList.remove(getIndexOfBook(currentBookList,name));
+        currentBookList.remove(findBook(currentBookList,name));
     }
 }
